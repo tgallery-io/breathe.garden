@@ -1,0 +1,11 @@
+{
+    "name": "High Pollution",
+    "description": "The level of pollution in your city is high",
+    "image": "https://ipfs.io/ipfs/QmZdLP6656PKEAPqLy3Ez3Ru3mvtkR6eS2gRs62eRh4hLh",
+    "attributes": [
+        {
+            "trait-type": "Pollution Level",
+            "value": "High"
+        }
+    ]
+    }

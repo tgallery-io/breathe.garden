@@ -1,0 +1,11 @@
+{
+"name": "Low Pollution",
+"description": "The level of pollution in your city is low",
+"image": "https://ipfs.io/ipfs/QmaGJoYUqZFPen4HxZsgF1h9BpRhpdbRt8kRRdZRFVk4bU",
+"attributes": [
+    {
+        "trait-type": "Pollution Level",
+        "value": "Low"
+    }
+]
+}

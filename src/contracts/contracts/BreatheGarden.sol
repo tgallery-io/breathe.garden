@@ -80,7 +80,7 @@ contract BreatheGarden is ERC721URIStorage, ChainlinkClient, ConfirmedOwner {
         _addTokenToOwnerEnumeration(owner, tokenId);
         _creators[tokenId] = owner;
         _cityToPollution[city] = 0; //Temporary value
-        string memory metadataURI = "https://breathe.garden/metadata/loading.json";
+        string memory metadataURI = "https://breathe.garden/loading.json";
         _setTokenURI(tokenId, metadataURI);
         requestPollutionData(city);
         return tokenId;

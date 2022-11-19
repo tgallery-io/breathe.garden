@@ -1,0 +1,11 @@
+{
+    "name": "Loading",
+    "description": "Loading",
+    "image": "https://ipfs.io/ipfs/QmebhhcBwXzHmaH9Ury2VQuR54niaHmWUtdb7XJCzLAaKH",
+    "attributes": [
+        {
+            "trait-type": "Pollution Level",
+            "value": "Loading"
+        }
+    ]
+    }

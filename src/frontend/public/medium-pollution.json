@@ -1,0 +1,11 @@
+{
+    "name": "Medium Pollution",
+    "description": "The level of pollution in your city is medium",
+    "image": "https://ipfs.io/ipfs/QmarSiWu42S27ibRUsokRigcMFG14N2YyKEa498KN3oyrf",
+    "attributes": [
+        {
+            "trait-type": "Pollution Level",
+            "value": "Medium"
+        }
+    ]
+    }
