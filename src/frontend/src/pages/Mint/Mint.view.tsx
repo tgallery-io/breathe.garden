@@ -25,9 +25,9 @@ export const MintView = ({ mintCallback, connectCallback, loading, address }: Mi
         </Link>
         <div>Enter the name of your city and mint a new Breathe NFT that will be sent to your wallet for free.</div>
 
-        <label htmlFor="name">Your city</label>
+        <label htmlFor="nameCity">Your city</label>
         <Input
-          name="name"
+          name="nameCity"
           placeholder=""
           type="text"
           onChange={(e: any) => setCity(e.target.value)}
