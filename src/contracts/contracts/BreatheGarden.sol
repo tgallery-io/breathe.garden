@@ -6,10 +6,11 @@ import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "../node_modules/@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "../node_modules/@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
+import "../node_modules/@chainlink/contracts/src/v0.8/AutomationCompatible.sol";
 
 error BreatheGardenError();
 
-contract BreatheGarden is ERC721URIStorage, ChainlinkClient, ConfirmedOwner {
+contract BreatheGarden is ERC721URIStorage, ChainlinkClient, ConfirmedOwner, AutomationCompatibleInterface {
     using Counters for Counters.Counter;
     using Chainlink for Chainlink.Request;
 
@@ -24,11 +25,18 @@ contract BreatheGarden is ERC721URIStorage, ChainlinkClient, ConfirmedOwner {
     bytes32 private jobId;
     uint256 private fee;
 
+    uint256 public counter;
+    uint256 public immutable interval;
+    uint256 public lastTimeStamp;
+
     constructor() ERC721("Breathe Garden", "BG") ConfirmedOwner(msg.sender) {
         setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
         setChainlinkOracle(0x40193c8518BB267228Fc409a613bDbD8eC5a97b3);
         jobId = "ca98366cc7314957b8c012c72f05aeeb";
         fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18 (Varies by network and job)
+        interval = 86400; // Every day
+        lastTimeStamp = block.timestamp;
+        counter = 0;
     }
 
     function _getMetadata(uint256 _pollution) private pure returns (string memory) {
@@ -64,6 +72,18 @@ contract BreatheGarden is ERC721URIStorage, ChainlinkClient, ConfirmedOwner {
         string memory city = _requestIdToCity[_requestId];
         _cityToPollution[city] = _pollution;
         updateTokens();
+    }
+
+    function checkUpkeep(bytes calldata) external view override returns (bool upkeepNeeded, bytes memory) {
+        upkeepNeeded = (block.timestamp - lastTimeStamp) > interval;
+    }
+
+    function performUpkeep(bytes calldata) external override {
+        if ((block.timestamp - lastTimeStamp) > interval) {
+            lastTimeStamp = block.timestamp;
+            counter = counter + 1;
+            updateTokens();
+        }
     }
 
     function withdrawLink() public onlyOwner {
